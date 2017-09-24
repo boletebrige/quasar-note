@@ -31,7 +31,7 @@
     </q-modal>
     <q-card v-for="(note, index) in this.notes" :key="index">
       <q-card-title>
-        {{ note.title }}
+          <router-link :to="{path: '/edit/' + note.id}">{{ note.title }}</router-link>
         <q-btn
             round
             flat
@@ -111,8 +111,11 @@ export default {
         this.$refs.layoutModal.open()
     },
     save(){
-        this.notes.push({ title: this.title, content: this.content, date: Date() })
+        this.notes.push({ id: this.notes.length, title: this.title, content: this.content, date: Date() })
         console.log(this.title)
+        for(let i = 0; i < this.notes.length; i++){
+            this.notes[i].id = i;
+        }
         // local storage doesn't support objects
         storage.setItem('notes', JSON.stringify(this.notes))
         this.title = null
@@ -128,7 +131,6 @@ export default {
   },
   mounted () {
       // console.log(JSON.parse(storage.getItem('key')))
-      console.log(this.notes)
       if(storage.getItem('notes')){
           console.log('if')
           this.notes = JSON.parse(storage.getItem('notes'))
@@ -136,7 +138,6 @@ export default {
           console.log('else')
           storage.setItem('notes', JSON.stringify(this.notes)) 
       }
-      console.log(date.formatDate(Date(), 'YYYY-MM-DD HH:mm:ss'))
   },
   beforeDestroy () {
   }

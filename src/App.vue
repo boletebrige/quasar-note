@@ -5,23 +5,18 @@
     :left-class="{'bg-grey-2': true}"
   >
     <q-toolbar slot="header" color="dark">
-      <!-- <q-btn
+      <q-btn
         flat
-        @click="$refs.layout.toggleLeft()"
+        v-if="this.$route.name == 'edit'"
       >
-        <q-icon name="menu" />
-      </q-btn> -->
+        <router-link to="/"><q-icon name="arrow back" /></router-link>
+      </q-btn>
 
       <q-toolbar-title class="text-center">
         Quasar Notes
         <div slot="subtitle">Running on Quasar v{{$q.version}}</div>
       </q-toolbar-title>
-      <!-- <q-btn
-          flat
-          @click="$refs.layout.toggleLeft()"
-        >
-        <q-icon name="menu" />
-      </q-btn> -->
+
     </q-toolbar>
 
     <!-- <div slot="left">
@@ -83,6 +78,7 @@ export default {
   computed: {
   },
   methods: {
+
   },
   mounted () {
   },
